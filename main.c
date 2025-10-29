@@ -4,7 +4,7 @@
 #define N 4
 
 
-
+//it is 1 task
 int sum_diag(int **arr){
 	int result = 0;
 	for(int i = 3, j = 0; i >= 0 && j < N; i--, j++){
@@ -13,8 +13,26 @@ int sum_diag(int **arr){
 	return result;
 }
 
+//it is 2 task
+int min(int **arr){
+	int temp = 99999;
+	for(int i = 0; i < N; i++){
+		if(arr[i][2] < temp) temp = arr[i][2];	
+	}
+	return temp;
+}	
 
 
+//it is 3 task
+void swap(int **arr, int el){
+	int temp = arr[3][2];
+	int index = 0;
+	for(int i = 0; i < N; i++){
+		if(arr[i][2] == el) index = i;
+	}
+	arr[3][2] = el;
+	arr[index][2] = temp;
+}
 
 int main(int argc, char **argv){
 	if (argc < 2){
@@ -51,8 +69,15 @@ int main(int argc, char **argv){
 	
 
 	printf("sum = %i\n", sum_diag(matrix));
+	printf("min = %i\n", min(matrix));
+	swap(matrix, min(matrix));
 
-
+	for(int g = 0; g < N; g++){
+		for(int k = 0; k < N; k++){
+			printf("%i ", matrix[g][k]);
+		}
+		printf("\n");
+	}
 
 	//блок удаления\закрытия
 	fclose(fp);

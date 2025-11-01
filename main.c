@@ -34,22 +34,20 @@ void swap(int **arr, int rows, int el){
 
 int main(int argc, char **argv){
 	if (argc < 2){
-		printf("Ti eblan eshe imya faila");
+		printf("Too few arguments!");
 		return 0;
 	}	
 	
 	FILE *fp = fopen(argv[1], "r");
 	if(!fp){ printf("Error with file!"); return 1;}
 
-
+	//read the size of matrix
 	char c;
 	int rows = 0;
 	int cols = 1;
 	while((c = fgetc(fp)) != EOF){
 		if(c == '\n') rows++;
 		if(c == ' ' && rows == 0) cols++;
-		//тебе как то надо прекратить считать cols после
-		//первого обнаружения '\n'
 	}
 	rewind(fp);
 
@@ -69,6 +67,7 @@ int main(int argc, char **argv){
 		}
 	}
 	
+	//read matrix from file to array
 	int i = 0;
 	int j = 0;
 	for(; fscanf(fp, "%i", &matrix[i][j]) == 1; i++){
@@ -78,7 +77,7 @@ int main(int argc, char **argv){
 		j = 0;
 	}
 	
-//realization block
+	//realization block
 	printf("sum = %i\n", sum_diag(matrix, cols, rows));
 	printf("min = %i\n", min(matrix, rows));
 	swap(matrix, rows, min(matrix, rows));
@@ -90,7 +89,7 @@ int main(int argc, char **argv){
 		printf("\n");
 	}
 
-	//блок удаления\закрытия
+	//block of close/clear
 	fclose(fp);
 	for(int i = 0; i < rows; i++){
 		free(matrix[i]);

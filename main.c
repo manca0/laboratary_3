@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 //it is 1 task
 int sum_diag(int **arr, int cols, int rows){
 	int result = 0;
@@ -34,35 +33,44 @@ void swap(int **arr, int rows, int el){
 
 int main(int argc, char **argv){
 	if (argc < 2){
-		printf("Too few arguments!");
+		printf("Too few arguments!\n");
 		return 0;
 	}	
 	
 	FILE *fp = fopen(argv[1], "r");
-	if(!fp){ printf("Error with file!"); return 1;}
+	if(!fp){ printf("Error with file!\n"); return 1;}
 
 	//read the size of matrix
 	char c;
 	int rows = 0;
 	int cols = 1;
 	while((c = fgetc(fp)) != EOF){
-		if(c == '\n') rows++;
-		if(c == ' ' && rows == 0) cols++;
+		if (((int)c >= 48 && (int)c <= 57) || (int)c == 32 || (int)c == 10 || (int)c == 45){
+			if(c == '\n') rows++;
+			if(c == ' ' && rows == 0) cols++;
+		}
+		else{
+			printf("Elements must be only numbers!\n");
+			return 0;
+		}
+	}
+	if (!(rows >= 4 && cols >= 4)){
+		printf("matrix must be minimum 4x4!\n");
+		return 1;
 	}
 	rewind(fp);
-
 
 	
 	int **matrix = (int**)malloc(rows * sizeof(int*));
 	if(matrix == NULL){
-		printf("Error of memory");
+		printf("Error of memory\n");
 		return 0;
 	}
 
 	for(int i = 0; i < rows; i++){
 		matrix[i] = (int*)malloc(cols * sizeof(int));
 		if(matrix[i] == NULL){
-			printf("Error of memory");
+			printf("Error of memory\n");
 			return 0;
 		}
 	}

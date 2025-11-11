@@ -76,13 +76,10 @@ int main(int argc, char **argv){
 	}
 	
 	//read matrix from file to array
-	int i = 0;
-	int j = 0;
-	for(; fscanf(fp, "%i", &matrix[i][j]) == 1; i++){
-		for(; j < cols - 1; j++){
-			fscanf(fp, "%i", &matrix[i][j+1]);
+	for(int i = 0; i < rows; i++){
+		for(int j = 0; j < cols; j++){
+			fscanf(fp, "%d", &matrix[i][j]);
 		}
-		j = 0;
 	}
 	
 	//realization block
@@ -101,8 +98,8 @@ int main(int argc, char **argv){
 	fclose(fp);
 	for(int i = 0; i < rows; i++){
 		free(matrix[i]);
-		matrix[i] == NULL;
-	}
+		matrix[i] = NULL;
+    }	
 	free(matrix);
 	matrix = NULL;
 
